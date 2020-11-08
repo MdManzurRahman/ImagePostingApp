@@ -8,10 +8,10 @@
     </feature>
     <name>ImagePost</name>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        Simple Mobile image capturing and posting app
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="maruf.ce2k7@gmail.com" href="http://mdmanzurrahman.github.io">
+        Md Manzur Rahman
     </author>
     <content src="index.html" />
     <access origin="*" />
