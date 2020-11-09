@@ -1,22 +1,71 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
-    <title>Photo Attendance System</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
 </head>
-
 <body>
-    <div class="app">
-        <h1>Photo Attendance System</h1>
-        <button onclick="capturePhoto();">Capture Photo</button> <br>
-        <img style="display:none;width:100px;height:100px;" id="myImage" src="" />
-    </div>
+    User ID: <input id="user_id" type="user_id" placeholder="XXXXXXXXX" /> <br/>
+    Password: <input id="password" type="password" placeholder="password" /> <br/>
+    <button id="loginButton">Login</button>
+    <button id="registerButton">Register</button>
+    <br/>
+    Message: <p id="status"></p>
 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var url = "http://192.168.58.237/imageserver/auth.php";
+            //var url = "http://localhost/imageserver/auth.php";
+            
+            $("#loginButton").click(function(){
+                var user_id= $.trim($("#user_id").val());
+                var password= $.trim($("#password").val());
+
+                $("#status").text("Authenticating...");
+                var loginString ="user_id="+user_id+"&password="+password+"&login=1";
+                
+                $.ajax({
+                    type: "POST",crossDomain: true, cache: false,
+                    url: url,
+                    data: loginString,
+                    success: function(data){
+                        if(data == "success") {
+                            $("#status").text("Login Success..!");
+                            localStorage.loginstatus = "true";
+                            window.location.href = "main.html";
+                        }
+                        else if(data == "error")
+                        {
+                            $("#status").text("Login Failed..!");
+                        }
+                    }
+                });
+            });
+
+            $("#registerButton").click(function(){
+                var user_id= $.trim($("#user_id").val());
+                var password= $.trim($("#password").val());
+
+                $("#status").text("Creating New Account...");
+                var dataString="user_id="+user_id+"&password="+password+"&register=1";
+                $.ajax({
+                    type: "POST",crossDomain: true, cache: false,
+                    url: url,
+                    data: dataString,
+                    success: function(data){
+                        if(data == "success")
+                            $("#status").text("Registered success");
+                        else if( data == "exist")
+                            $("#status").text("Account is already there");
+                        else if(data == "error")
+                            $("#status").text("Register Failed");
+                    }
+                });
+            });
+        });
+    </script>
 </body>
-    
 </html>

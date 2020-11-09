@@ -20,7 +20,8 @@ function capturePhoto(){
 }
 
 function uploadImage(imageURI, fileName) {
-    var serverURL = 'http://192.168.0.104/imageserver/index.php'
+    var serverURL = 'http://192.168.58.237/imageserver/image_receive.php'
+    //var serverURL = 'http://192.168.0.104/imageserver/image_receive.php'
     var options = new FileUploadOptions();
     options.fileKey = 'file';
     options.fileName = fileName+'.jpg';
